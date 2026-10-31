@@ -10,7 +10,7 @@ class MyModel(nn.Module):
     """
     Kiến trúc Dual-Branch EfficientNet-B0 kết hợp ArcFace Head.
     - Nhánh 1 (Global): Trích xuất đặc trưng toàn thể ảnh (tóc, dáng, trang phục).
-    - Nhánh 2 (Local): Trích xuất đặc trưng khuôn mặt (mắt, mũi, miệng, biểu cảm).
+    - Nhánh 2 (Local): Trích xuất đặc trưng local
     - Feature Fusion: Nối 2 vector 1280-chiều -> 2560-chiều.
     - Neck: BatchNorm1d -> Dropout(0.5) -> Linear -> Vector embedding 512-chiều.
     - Head: ArcMarginProduct.
@@ -50,7 +50,7 @@ class MyModel(nn.Module):
         x = self.pool(x)
         x = self.flatten(x)
         return x
-
+    # Hàm lan truyền thuận
     def forward(
         self,
         img_global: torch.Tensor,
