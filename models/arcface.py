@@ -41,10 +41,12 @@ class ArcMarginProduct(nn.Module):
         w_norm = F.normalize(self.weight, p=2, dim=1)
 
         # Tính cosine góc theta giữa embedding và trọng số lớp
+	#X norm,Y norm sau khi chuản hóa có độ dài là 1 nên cosin bằng đúng tính vô hướng của hai ma trận 
         cos_theta = F.linear(x_norm, w_norm)
         cos_theta = torch.clamp(cos_theta, min=-1.0 + 1e-7, max=1.0 - 1e-7)
 
         # Khi ở chế độ Test/Inference (labels is None): không cộng góc phạt
+	# dùng cho  test
         if labels is None:
             return self.s * cos_theta, cos_theta
 
